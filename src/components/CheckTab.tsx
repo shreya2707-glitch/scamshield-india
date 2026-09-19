@@ -1,45 +1,23 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMessage, type AnalyzeResult } from "@/lib/scamshield.functions";
-import { EXAMPLES, MAX_IMAGE_BYTES, MAX_TEXT, type Dict, type Lang } from "@/lib/i18n";
+import { EXAMPLES, MAX_TEXT, type Dict, type Lang } from "@/lib/i18n";
 
 export function CheckTab({ t, lang }: { t: Dict; lang: Lang }) {
   const analyze = useServerFn(analyzeMessage);
   const [text, setText] = useState("");
-  const [image, setImage] = useState<string | null>(null);
-  const [fileError, setFileError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnalyzeResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
 
-  const canSubmit = (text.trim().length > 0 || !!image) && !loading;
-
-  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    setFileError(null);
-    if (!file) return;
-    if (!["image/png", "image/jpeg"].includes(file.type)) {
-      setFileError(t.fileWrongType);
-      return;
-    }
-    if (file.size > MAX_IMAGE_BYTES) {
-      setFileError(t.fileTooBig);
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => setImage(typeof reader.result === "string" ? reader.result : null);
-    reader.readAsDataURL(file);
-  }
+  const canSubmit = text.trim().length > 0 && !loading;
 
   async function submit() {
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const res = await analyze({
-        data: { text: text.trim(), imageBase64: image ?? "", language: lang },
-      });
+      const res = await analyze({ data: { text: text.trim(), language: lang } });
       setResult(res);
     } catch {
       setError(t.errorBody);
