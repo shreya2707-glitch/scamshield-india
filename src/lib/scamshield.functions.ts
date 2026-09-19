@@ -95,7 +95,7 @@ export const trainTurn = createServerFn({ method: "POST" })
     },
   )
   .handler(async ({ data }): Promise<{ reply: string } | ScoreResult> => {
-    const { callGemini, parseJsonSafely } = await import("./gemini.server");
+    const { callGroq, parseJsonSafely } = await import("./groq.server");
     const {
       TRAIN_CHAT_SYSTEM_PROMPT,
       TRAIN_SCORE_SYSTEM_PROMPT,
@@ -108,17 +108,13 @@ export const trainTurn = createServerFn({ method: "POST" })
       .join("\n");
 
     if (data.mode === "score") {
-      const raw = await callGemini({
+      const raw = await callGroq({
         system: `${TRAIN_SCORE_SYSTEM_PROMPT}\n\n${languageInstruction(data.language)}`,
-        parts: [
-          {
-            text:
-              `Scenario: ${SCENARIO_PROMPTS[data.scenarioId] ?? data.scenarioId}\n\n` +
-              "<<<UNTRUSTED_TRANSCRIPT_START>>>\n" +
-              (transcript || "(no replies)") +
-              "\n<<<UNTRUSTED_TRANSCRIPT_END>>>",
-          },
-        ],
+        user:
+          `Scenario: ${SCENARIO_PROMPTS[data.scenarioId] ?? data.scenarioId}\n\n` +
+          "<<<UNTRUSTED_TRANSCRIPT_START>>>\n" +
+          (transcript || "(no replies)") +
+          "\n<<<UNTRUSTED_TRANSCRIPT_END>>>",
         json: true,
       });
       const p = parseJsonSafely<Partial<ScoreResult>>(raw);
@@ -132,18 +128,14 @@ export const trainTurn = createServerFn({ method: "POST" })
       };
     }
 
-    const reply = await callGemini({
+    const reply = await callGroq({
       system:
         `${TRAIN_CHAT_SYSTEM_PROMPT}\n\nScenario: ${SCENARIO_PROMPTS[data.scenarioId] ?? ""}\n\n` +
         languageInstruction(data.language),
-      parts: [
-        {
-          text:
-            "<<<UNTRUSTED_TRANSCRIPT_START>>>\n" +
-            (transcript || "(the conversation is starting; send your opening line)") +
-            "\n<<<UNTRUSTED_TRANSCRIPT_END>>>",
-        },
-      ],
+      user:
+        "<<<UNTRUSTED_TRANSCRIPT_START>>>\n" +
+        (transcript || "(the conversation is starting; send your opening line)") +
+        "\n<<<UNTRUSTED_TRANSCRIPT_END>>>",
     });
     return { reply: reply.trim() };
   });
