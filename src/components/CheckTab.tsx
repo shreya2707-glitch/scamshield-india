@@ -38,7 +38,7 @@ export function CheckTab({ t, lang }: { t: Dict; lang: Lang }) {
     setResult(null);
     try {
       const res = await analyze({
-        data: { text: text.trim(), imageBase64: image ?? undefined, language: lang },
+        data: { text: text.trim(), imageBase64: image ?? "", language: lang },
       });
       setResult(res);
     } catch {
