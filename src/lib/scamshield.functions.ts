@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
 const MAX_TEXT = 2000;
-const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 const MAX_HISTORY = 20;
 
 export type RiskLevel = "low" | "medium" | "high";
