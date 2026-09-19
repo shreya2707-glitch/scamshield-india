@@ -29,7 +29,7 @@ Server logic lives in `src/lib/scamshield.functions.ts` (`analyzeMessage` and `t
 which run only on the server — the API key never reaches the browser.
 
 - Model name: single constant `GROQ_MODEL` in `src/lib/groq.server.ts`
-  (currently `llama-3.3-70b-versatile`).
+  (currently `openai/gpt-oss-120b`; `llama-3.3-70b-versatile` is not available on this key).
 - Endpoint: `https://api.groq.com/openai/v1/chat/completions`, JSON output mode requested
   for the analysis and scoring calls, with safe parsing of the response.
 - Prompts: `src/lib/prompts.server.ts` (placeholder constants, safe to rewrite).
