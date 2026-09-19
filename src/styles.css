@@ -59,6 +59,13 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-risk-low: var(--risk-low);
+  --color-risk-low-soft: var(--risk-low-soft);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-medium-soft: var(--risk-medium-soft);
+  --color-risk-high: var(--risk-high);
+  --color-risk-high-soft: var(--risk-high-soft);
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 :root {
