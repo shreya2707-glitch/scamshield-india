@@ -92,44 +92,6 @@ export function CheckTab({ t, lang }: { t: Dict; lang: Lang }) {
           ))}
         </div>
 
-        <div className="mt-5">
-          <label htmlFor="screenshot" className="block text-sm font-medium text-foreground">
-            {t.screenshotLabel}
-          </label>
-          <p className="text-xs text-muted-foreground">{t.screenshotHint}</p>
-          <input
-            id="screenshot"
-            ref={fileRef}
-            type="file"
-            accept="image/png,image/jpeg"
-            onChange={onFile}
-            className="mt-2 block w-full text-sm text-muted-foreground file:mr-3 file:rounded-full file:border-0 file:bg-secondary file:px-4 file:py-2 file:text-sm file:font-medium file:text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          />
-          {fileError && (
-            <p className="mt-2 text-sm text-destructive" role="alert">
-              {fileError}
-            </p>
-          )}
-          {image && (
-            <div className="mt-3 flex items-center gap-3">
-              <img
-                src={image}
-                alt=""
-                className="h-20 w-20 rounded-xl border border-border object-cover"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setImage(null);
-                  if (fileRef.current) fileRef.current.value = "";
-                }}
-                className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {t.removeImage}
-              </button>
-            </div>
-          )}
-        </div>
 
         <button
           type="button"
