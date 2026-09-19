@@ -36,37 +36,23 @@ function strArray(v: unknown, fallback: string[] = []): string[] {
 }
 
 export const analyzeMessage = createServerFn({ method: "POST" })
-  .inputValidator((input: { text?: string; imageBase64?: string; language?: string }) => {
+  .inputValidator((input: { text?: string; language?: string }) => {
     const text = typeof input?.text === "string" ? input.text.trim() : "";
-    const imageBase64 = typeof input?.imageBase64 === "string" ? input.imageBase64 : "";
     if (text.length > MAX_TEXT) throw new InputError(`Please keep the message under ${MAX_TEXT} characters.`);
-    if (imageBase64) {
-      const bytes = Math.floor((imageBase64.split(",").pop() ?? "").length * 0.75);
-      if (bytes > MAX_IMAGE_BYTES) throw new InputError("Please use an image smaller than 4 MB.");
-    }
-    if (!text && !imageBase64) throw new InputError("Please add a message or a screenshot.");
-    return { text, imageBase64, language: asLang(input?.language) };
+    if (!text) throw new InputError("Please paste the message you want checked.");
+    return { text, language: asLang(input?.language) };
   })
   .handler(async ({ data }): Promise<AnalyzeResult> => {
-    const { callGemini, parseJsonSafely } = await import("./gemini.server");
+    const { callGroq, parseJsonSafely } = await import("./groq.server");
     const { ANALYZE_SYSTEM_PROMPT, languageInstruction } = await import("./prompts.server");
 
-    const parts: Array<{ text: string } | { inlineData: { mimeType: string; data: string } }> = [];
-    parts.push({
-      text:
-        `${languageInstruction(data.language)}\n\n` +
-        "<<<UNTRUSTED_USER_CONTENT_START>>>\n" +
-        (data.text || "(no text provided; see attached screenshot)") +
-        "\n<<<UNTRUSTED_USER_CONTENT_END>>>",
-    });
+    const user =
+      `${languageInstruction(data.language)}\n\n` +
+      "<<<UNTRUSTED_USER_CONTENT_START>>>\n" +
+      data.text +
+      "\n<<<UNTRUSTED_USER_CONTENT_END>>>";
 
-    if (data.imageBase64) {
-      const [meta, payload] = data.imageBase64.split(",");
-      const mimeType = /image\/(png|jpeg|jpg)/.exec(meta ?? "")?.[0] ?? "image/png";
-      if (payload) parts.push({ inlineData: { mimeType, data: payload } });
-    }
-
-    const raw = await callGemini({ system: ANALYZE_SYSTEM_PROMPT, parts, json: true });
+    const raw = await callGroq({ system: ANALYZE_SYSTEM_PROMPT, user, json: true });
     const parsed = parseJsonSafely<Partial<AnalyzeResult>>(raw);
     const level = parsed.risk_level;
     return {
