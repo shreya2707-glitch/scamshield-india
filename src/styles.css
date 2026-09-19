@@ -65,7 +65,7 @@
   --color-risk-medium-soft: var(--risk-medium-soft);
   --color-risk-high: var(--risk-high);
   --color-risk-high-soft: var(--risk-high-soft);
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter Tight", "Noto Sans Devanagari", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 :root {
