@@ -48,7 +48,7 @@ export const analyzeMessage = createServerFn({ method: "POST" })
     return { text, imageBase64, language: asLang(input?.language) };
   })
   .handler(async ({ data }): Promise<AnalyzeResult> => {
-    const { callGemini, parseJsonSafely, type GeminiPart } = await import("./gemini.server");
+    const { callGemini, parseJsonSafely } = await import("./gemini.server");
     const { ANALYZE_SYSTEM_PROMPT, languageInstruction } = await import("./prompts.server");
 
     const parts: Array<{ text: string } | { inlineData: { mimeType: string; data: string } }> = [];
