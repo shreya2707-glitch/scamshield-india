@@ -83,7 +83,7 @@ const en: Dict = {
     "ScamShield gives guidance, not a guarantee. Always verify with your bank or official sources. We don't store your messages.",
 
   checkTitle: "Is this message a scam?",
-  checkHelp: "Paste the message or upload a screenshot. We'll explain what looks risky.",
+  checkHelp: "Paste the message below. We'll explain what looks risky.",
   messageLabel: "Message text",
   messagePlaceholder: "Paste the SMS, WhatsApp or email text here…",
   charCount: (n, max) => `${n} / ${max} characters`,
@@ -149,7 +149,7 @@ const hi: Dict = {
     "ScamShield मार्गदर्शन देता है, गारंटी नहीं। हमेशा अपने बैंक या आधिकारिक स्रोत से पुष्टि करें। हम आपके संदेश सहेजते नहीं हैं।",
 
   checkTitle: "क्या यह संदेश धोखाधड़ी है?",
-  checkHelp: "संदेश चिपकाएँ या स्क्रीनशॉट अपलोड करें। हम बताएँगे क्या जोखिम भरा लगता है।",
+  checkHelp: "संदेश नीचे चिपकाएँ। हम बताएँगे क्या जोखिम भरा लगता है।",
   messageLabel: "संदेश का पाठ",
   messagePlaceholder: "यहाँ SMS, WhatsApp या ईमेल का पाठ चिपकाएँ…",
   charCount: (n, max) => `${n} / ${max} अक्षर`,
@@ -215,7 +215,7 @@ const mr: Dict = {
     "ScamShield मार्गदर्शन देते, हमी नाही. नेहमी तुमच्या बँकेकडून किंवा अधिकृत स्रोताकडून खात्री करा. आम्ही तुमचे संदेश साठवत नाही.",
 
   checkTitle: "हा संदेश फसवणूक आहे का?",
-  checkHelp: "संदेश पेस्ट करा किंवा स्क्रीनशॉट अपलोड करा. काय धोकादायक वाटते ते सांगू.",
+  checkHelp: "संदेश खाली पेस्ट करा. काय धोकादायक वाटते ते सांगू.",
   messageLabel: "संदेशाचा मजकूर",
   messagePlaceholder: "इथे SMS, WhatsApp किंवा ईमेलचा मजकूर पेस्ट करा…",
   charCount: (n, max) => `${n} / ${max} अक्षरे`,

@@ -1,45 +1,23 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMessage, type AnalyzeResult } from "@/lib/scamshield.functions";
-import { EXAMPLES, MAX_IMAGE_BYTES, MAX_TEXT, type Dict, type Lang } from "@/lib/i18n";
+import { EXAMPLES, MAX_TEXT, type Dict, type Lang } from "@/lib/i18n";
 
 export function CheckTab({ t, lang }: { t: Dict; lang: Lang }) {
   const analyze = useServerFn(analyzeMessage);
   const [text, setText] = useState("");
-  const [image, setImage] = useState<string | null>(null);
-  const [fileError, setFileError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnalyzeResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
 
-  const canSubmit = (text.trim().length > 0 || !!image) && !loading;
-
-  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    setFileError(null);
-    if (!file) return;
-    if (!["image/png", "image/jpeg"].includes(file.type)) {
-      setFileError(t.fileWrongType);
-      return;
-    }
-    if (file.size > MAX_IMAGE_BYTES) {
-      setFileError(t.fileTooBig);
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => setImage(typeof reader.result === "string" ? reader.result : null);
-    reader.readAsDataURL(file);
-  }
+  const canSubmit = text.trim().length > 0 && !loading;
 
   async function submit() {
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const res = await analyze({
-        data: { text: text.trim(), imageBase64: image ?? "", language: lang },
-      });
+      const res = await analyze({ data: { text: text.trim(), language: lang } });
       setResult(res);
     } catch {
       setError(t.errorBody);
@@ -92,44 +70,6 @@ export function CheckTab({ t, lang }: { t: Dict; lang: Lang }) {
           ))}
         </div>
 
-        <div className="mt-5">
-          <label htmlFor="screenshot" className="block text-sm font-medium text-foreground">
-            {t.screenshotLabel}
-          </label>
-          <p className="text-xs text-muted-foreground">{t.screenshotHint}</p>
-          <input
-            id="screenshot"
-            ref={fileRef}
-            type="file"
-            accept="image/png,image/jpeg"
-            onChange={onFile}
-            className="mt-2 block w-full text-sm text-muted-foreground file:mr-3 file:rounded-full file:border-0 file:bg-secondary file:px-4 file:py-2 file:text-sm file:font-medium file:text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          />
-          {fileError && (
-            <p className="mt-2 text-sm text-destructive" role="alert">
-              {fileError}
-            </p>
-          )}
-          {image && (
-            <div className="mt-3 flex items-center gap-3">
-              <img
-                src={image}
-                alt=""
-                className="h-20 w-20 rounded-xl border border-border object-cover"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setImage(null);
-                  if (fileRef.current) fileRef.current.value = "";
-                }}
-                className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {t.removeImage}
-              </button>
-            </div>
-          )}
-        </div>
 
         <button
           type="button"
