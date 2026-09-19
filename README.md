@@ -46,14 +46,14 @@ bun run dev
 
 ## Environment variable
 
-| Name             | Purpose                        |
-| ---------------- | ------------------------------ |
-| `GEMINI_API_KEY` | Google Gemini API key (server) |
+| Name           | Purpose               |
+| -------------- | --------------------- |
+| `GROQ_API_KEY` | Groq API key (server) |
 
 Store it as a project secret; never put it in frontend code.
 
 ## Privacy
 
-Messages, screenshots and practice chats are sent to the AI model only to produce the
+Messages and practice chats are sent to the AI model only to produce the
 result you see, and are not stored, logged or linked to you. ScamShield gives guidance,
 not a guarantee — always verify with your bank or official sources.
