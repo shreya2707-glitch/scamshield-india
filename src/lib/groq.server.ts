@@ -1,5 +1,9 @@
-/** Change the model here — single source of truth. */
-export const GROQ_MODEL = "llama-3.3-70b-versatile";
+/**
+ * Change the model here — single source of truth.
+ * Note: "llama-3.3-70b-versatile" is not available on this API key
+ * (Groq returns model_not_found), so we use an available Groq model.
+ */
+export const GROQ_MODEL = "openai/gpt-oss-120b";
 
 const ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
