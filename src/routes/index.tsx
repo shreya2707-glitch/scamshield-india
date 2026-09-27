@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import { CheckTab } from "@/components/CheckTab";
 import { TrainTab } from "@/components/TrainTab";
+import { Button } from "@/components/ui/button";
 import { dictionaries, LANGUAGES, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -37,7 +39,20 @@ function ShieldIcon() {
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const [tab, setTab] = useState<"check" | "train">("check");
+  const [darkTheme, setDarkTheme] = useState(false);
   const t = dictionaries[lang];
+
+  useEffect(() => {
+    setDarkTheme(document.documentElement.classList.contains("dark"));
+  }, []);
+
+  function toggleTheme() {
+    const nextTheme = !darkTheme;
+    document.documentElement.classList.toggle("dark", nextTheme);
+    document.documentElement.style.colorScheme = nextTheme ? "dark" : "light";
+    window.localStorage.setItem("scamshield-theme", nextTheme ? "dark" : "light");
+    setDarkTheme(nextTheme);
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
@@ -50,7 +65,7 @@ function Index() {
               <p className="hidden text-xs text-muted-foreground sm:block">{t.tagline}</p>
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-2">
             <label htmlFor="lang" className="sr-only">
               {t.languageLabel}
             </label>
@@ -66,6 +81,17 @@ function Index() {
                 </option>
               ))}
             </select>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={toggleTheme}
+              aria-label={darkTheme ? t.switchToLightTheme : t.switchToDarkTheme}
+              title={darkTheme ? t.switchToLightTheme : t.switchToDarkTheme}
+              className="h-10 w-10 shrink-0 rounded-xl shadow-none"
+            >
+              {darkTheme ? <Sun aria-hidden /> : <Moon aria-hidden />}
+            </Button>
           </div>
         </div>
 

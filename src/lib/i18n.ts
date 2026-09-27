@@ -10,6 +10,8 @@ export type Dict = {
   brand: string;
   tagline: string;
   languageLabel: string;
+  switchToLightTheme: string;
+  switchToDarkTheme: string;
   tabCheck: string;
   tabTrain: string;
   disclaimer: string;
@@ -77,6 +79,8 @@ const en: Dict = {
   brand: "ScamShield",
   tagline: "Spot scams. Practise saying no.",
   languageLabel: "Language",
+  switchToLightTheme: "Switch to light theme",
+  switchToDarkTheme: "Switch to dark theme",
   tabCheck: "Check a message",
   tabTrain: "Train yourself",
   disclaimer:
@@ -143,6 +147,8 @@ const hi: Dict = {
   brand: "ScamShield",
   tagline: "धोखाधड़ी पहचानें। मना करना सीखें।",
   languageLabel: "भाषा",
+  switchToLightTheme: "लाइट थीम पर जाएँ",
+  switchToDarkTheme: "डार्क थीम पर जाएँ",
   tabCheck: "संदेश जाँचें",
   tabTrain: "अभ्यास करें",
   disclaimer:
@@ -209,6 +215,8 @@ const mr: Dict = {
   brand: "ScamShield",
   tagline: "फसवणूक ओळखा. नकार द्यायला शिका.",
   languageLabel: "भाषा",
+  switchToLightTheme: "लाइट थीम वापरा",
+  switchToDarkTheme: "डार्क थीम वापरा",
   tabCheck: "संदेश तपासा",
   tabTrain: "सराव करा",
   disclaimer:

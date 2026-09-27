@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Apply the saved or system theme through a `dark` class on the root element; semantic color tokens keep all screens and risk states consistent.
