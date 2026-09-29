@@ -17,15 +17,15 @@ An AI-powered, mobile-first web app that helps everyday users in India recognise
 
 </div>
 
-<!--
-  SCREENSHOTS: add three images to /public and uncomment this block.
+<img width="1045" height="946" alt="image" src="https://github.com/user-attachments/assets/4b2a1167-3c48-4c96-80a0-f708bd71a424" /> <img width="996" height="949" alt="image" src="https://github.com/user-attachments/assets/a802d310-241d-4f7a-8374-2f13bdb1338d" />
 
-  ## 📸 Screenshots
+<img width="993" height="969" alt="image" src="https://github.com/user-attachments/assets/84f1ba57-93c6-401c-b13f-afecca741ee2" />
 
-  | Scam Analysis | Awareness Training | Training Score |
-  | --- | --- | --- |
-  | ![Scam analysis](./public/screenshot-analyzer.png) | ![Scam training](./public/screenshot-training.png) | ![Training score](./public/screenshot-score.png) |
--->
+<img width="1136" height="1004" alt="image" src="https://github.com/user-attachments/assets/dbe26283-6289-403c-9dbf-d98f31b70a7b" />
+<img width="1043" height="1038" alt="image" src="https://github.com/user-attachments/assets/768c8cce-7f70-4df3-9b9b-7470094bd29c" />
+
+
+
 
 ---
 
