@@ -1,10 +1,15 @@
 <div align="center">
-
 # 🛡️ ScamShield India
 
 ### Spot scams. Understand the red flags. Practise saying no.
 
-An AI-powered, mobile-first web app that helps everyday users in India recognise suspicious messages, understand how scams manipulate people, and rehearse safe responses.
+An AI-powered, mobile-first web app that helps people in India
+identify suspicious messages and practise resisting common
+social-engineering scams.
+
+**Built solo in 24 hours for Hack Devengers 2.0.**
+
+🌐 **[Live Demo](https://scammer-shield.lovable.app/)**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-scammer--shield.lovable.app-2ea44f?style=for-the-badge)](https://scammer-shield.lovable.app/)
 
